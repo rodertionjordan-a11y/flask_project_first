@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import datetime
 import random
-
+import requests
 
 
 
@@ -30,6 +30,10 @@ def facts_world():
 
 @app.route("/secrets")
 def secret_world():
-    return render_template('secret.html', t=datetime.datetime.now())
+    url = 'https://random.dog/woof.json'
+    res = requests.get(url)
+    data = res.json()
+
+    return render_template('secret.html', i=data['url'])
 
 app.run(debug=True) 
